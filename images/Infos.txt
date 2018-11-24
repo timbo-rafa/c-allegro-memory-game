@@ -1,0 +1,4 @@
+Pixel Inicial do quadro (15, 125)
+Dimensao Quadro: 400 x 224 px.
+Cor Do Quadro: makecol( 0, 75, 0)
+Letra: Cooper Std Black Italic (Smooth) 10 pts
