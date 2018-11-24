@@ -143,7 +143,8 @@ void converteIntToString(int value, char str[]){
     int i, n = 0;
     char valor[MAX_CASAS_DECIMAIS_RECORDE];
 
-    itoa(value,valor,10);
+    //itoa(value,valor,10);
+    sprintf(valor, "%d", value);
 
     for(i = 0; i < (MAX_CASAS_DECIMAIS_RECORDE - strlen(valor)); i++){
         str[n] = CHAR_ZERO;
