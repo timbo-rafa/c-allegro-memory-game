@@ -1,0 +1,240 @@
+
+// monta a tela de menu e trata a localizacao do mouse sobre as opcoes do mesmo.
+void telaMenuPrincipal(EstadoJogo *estado, BITMAP *buffer, MIDI **musicaFundo, short int tocando) {
+    BITMAP *Menu, *Menu_Selected, *quadro, *bg, *buffer_quadro;
+    SAMPLE *fase2;
+    short int Movequadro = 1, i = DELAY_QUADRO;
+
+    fase2 = load_sample(SOUNDS_PATH"fase2.wav"); //som para o clique nas opções
+    if(!tocando) { //se a música de fundo fora destruída, ela é recriada.
+        *musicaFundo = load_midi(SOUNDS_PATH"alegre.mid");
+        play_midi(*musicaFundo, 1);
+    }
+
+    quadro = load_bmp(IMAGES_PATH"quadro.bmp", NULL);
+    bg  = load_bmp(IMAGES_PATH"abertura.bmp", NULL);
+    Menu = load_bmp(IMAGES_PATH"menu.bmp", NULL);
+    Menu_Selected = load_bmp(IMAGES_PATH"menu_selected.bmp", NULL);
+    buffer_quadro = create_bitmap( 2 * QUADRO_X + quadro->w, ALTURA_TELA);
+
+    rectfill(buffer_quadro, 0, 0, 2 * QUADRO_X + quadro->w, ALTURA_TELA, TRANSPARENTE);
+
+    while(*estado == Menu_Principal) {
+        if (Movequadro == 1) {
+            //Bloco responsável pela animação do quadro do menu inicial
+            blit(bg, buffer, 0, 0, 0, 0, LARGURA_TELA, ALTURA_TELA);
+            blit(quadro, buffer_quadro, 0,quadro->h - i/DELAY_QUADRO, MOVE_QUADRO_X, 0,quadro->w, i/DELAY_QUADRO);
+            draw_sprite(buffer, buffer_quadro, 0, 0);
+            if (i/DELAY_QUADRO >= quadro->h) {
+                Movequadro++;
+                i = 1;
+<<<<<<< .mine
+            }
+            else if (key[KEY_ESC]) i = quadro->h * DELAY_QUADRO;
+            else i++;
+        }
+        else if (Movequadro == 2)
+        {
+=======
+            } else i++;
+        } else if (Movequadro == 2) {
+>>>>>>> .r100
+            //Bloco responsavel pela "escrita do menu principal"
+            blit(Menu, buffer, 0, 0, QUADRO_X, QUADRO_Y, i/DELAY_QUADRO , Menu->h);
+<<<<<<< .mine
+            if ( i/DELAY_QUADRO >= Menu->w)
+                Movequadro = FALSE;
+            else if (key[KEY_ESC]) i = Menu->w * DELAY_QUADRO - 1;
+            else i++;
+        }
+        else if (MouseNoIntervalo(OPCAO_X_MIN, OPCAO_X_MAX, INICIAR_JOGO_Y_MIN, INICIAR_JOGO_Y_MAX))
+            {
+=======
+            if ( i/DELAY_QUADRO > Menu->w) Movequadro = FALSE;
+        } else if (mouse_x >= OPCAO_X_MIN && mouse_x <= OPCAO_X_MAX) {
+            if (mouse_y >= INICIAR_JOGO_Y_MIN &&  mouse_y <= INICIAR_JOGO_Y_MAX) {
+>>>>>>> .r100
+                blit(Menu_Selected, buffer, 0, MARGEM, QUADRO_X, (QUADRO_Y + MARGEM - 5), Menu_Selected->w, OPCAO_HEIGHT);
+                if (mouse_b & 1) {
+                    play_sample(fase2, 255, 255, 1000, 0);
+                    *estado = Placas_Nivel;
+                }
+<<<<<<< .mine
+            }
+            else if (MouseNoIntervalo(OPCAO_X_MIN, OPCAO_X_MAX, COMOJOGAR_Y_MIN, COMOJOGAR_Y_MAX))
+            {
+=======
+            } else if (mouse_y >= OPCOES_Y_MIN && mouse_y <= OPCOES_Y_MAX) {
+>>>>>>> .r100
+                blit(Menu_Selected, buffer, 0, OPCAO_HEIGHT + MARGEM, QUADRO_X, QUADRO_Y + OPCAO_HEIGHT + MARGEM - 5, Menu_Selected->w, OPCAO_HEIGHT + 3);
+                if (mouse_b & 1) {
+                    play_sample(fase2, 255, 255, 1000, 0);
+                    rest(500); ///REMOVER ESTA LINHA quando estiver pronto o menu opções
+                    //*estado = Menu_Opcoes; //A FAZER (Por Rafael)
+                }
+<<<<<<< .mine
+            }
+            else if (MouseNoIntervalo(OPCAO_X_MIN, OPCAO_X_MAX, RECORDES_Y_MIN, RECORDES_Y_MAX)){
+=======
+            } else if (mouse_y >= RECORDES_Y_MIN && mouse_y <= RECORDES_Y_MAX) {
+>>>>>>> .r100
+                    blit(Menu_Selected, buffer, 0, 2 * OPCAO_HEIGHT + MARGEM + 5, QUADRO_X, QUADRO_Y + 2 * OPCAO_HEIGHT + MARGEM, Menu_Selected->w, OPCAO_HEIGHT);
+                    if (mouse_b & 1) {
+                        play_sample(fase2, 255, 255, 1000, 0);
+                        *estado = Menu_Recordes;
+                    }
+<<<<<<< .mine
+            }
+            else if (MouseNoIntervalo(OPCAO_X_MIN, OPCAO_X_MAX, SAIR_Y_MIN, SAIR_Y_MAX))
+            {
+=======
+            } else if (mouse_y >= SAIR_Y_MIN && mouse_y <= SAIR_Y_MAX) {
+>>>>>>> .r100
+                    blit(Menu_Selected, buffer, 0, 3 * OPCAO_HEIGHT + MARGEM + 5, QUADRO_X, QUADRO_Y + 3 * OPCAO_HEIGHT + MARGEM, Menu_Selected->w, OPCAO_HEIGHT);
+                    if (mouse_b & 1) {
+                        play_sample(fase2, 255, 255, 1000, 0);
+                        *estado = Saida;
+                    }
+<<<<<<< .mine
+            }
+            else blit(Menu, buffer, 0, 0, QUADRO_X, QUADRO_Y, Menu->w, Menu->h);
+        Tela(buffer);
+=======
+            } else blit(Menu, buffer, 0, 0, QUADRO_X, QUADRO_Y, Menu->w, Menu->h);
+      } else blit(Menu, buffer, 0, 0, QUADRO_X, QUADRO_Y,Menu->w, Menu->h);
+>>>>>>> .r100
+
+    }
+    rest(500); //tempo para "segurar" o clique do usuário, antes de destruir o sample
+    destroy_sample(fase2);
+    destroy_bitmap(quadro);
+    destroy_bitmap(buffer_quadro);
+    destroy_bitmap(Menu);
+    destroy_bitmap(Menu_Selected);
+    destroy_bitmap(bg);
+}
+
+int ChamaPlacas(BITMAP *buffer, short int i, BITMAP *placa[3], short int placasativas) {
+    if (placasativas == 0)      blit(placa[0], buffer, placa[0]->w - i, 0,        0        , PLACA0_Y, i, placa[0]->h);
+    else if (placasativas == 1) blit(placa[1], buffer,         0      , 0, LARGURA_TELA - i, PLACA1_Y, i, placa[1]->h);
+    else if (placasativas == 2) blit(placa[2], buffer, placa[2]->w - i, 0,        0        , PLACA2_Y, i, placa[2]->h);
+    else if (placasativas == 3) blit(placa[3], buffer,         0      , 0, LARGURA_TELA - i, PLACA3_Y, i, placa[3]->h);
+    else if (placasativas == 4) blit(placa[4], buffer, placa[4]->w - i, 0,        0        , PLACA4_Y, i, placa[4]->h);
+
+    Tela(buffer);
+
+    if (i > placa[0]->w) return TRUE;
+    else return FALSE;
+}
+
+short int telaPlacas(EstadoJogo *estado,BITMAP *buffer,  BITMAP *bg,short int nivelmax, short int *nivelatual, MIDI **musicaFundo, short int *tocando) {
+    BITMAP *placa[5];
+    SAMPLE *fase2;
+    placa[0] = load_bmp(IMAGES_PATH"p0.bmp", NULL);
+    placa[1] = load_bmp(IMAGES_PATH"p1.bmp", NULL);
+    placa[2] = load_bmp(IMAGES_PATH"p2.bmp", NULL);
+    placa[3] = load_bmp(IMAGES_PATH"p3.bmp", NULL);
+    placa[4] = load_bmp(IMAGES_PATH"p4.bmp", NULL);
+    fase2 =  load_sample(SOUNDS_PATH"fase2.wav");
+
+    blit(bg, buffer, 0 , 0, 0, 0, bg->w, bg->h);
+    short int pcont = 0, placasativas = 0;
+    blit(bg, buffer, 0, 0, 0, 0, bg->w, bg->h);
+
+    *nivelatual = NIVEL5; //______________________________<<<MUDE O LVL AKI (PROVISORIO)__________________________
+
+    while((!key[KEY_ENTER] || *nivelatual < NIVEL1 || *nivelatual > nivelmax) && *estado == Placas_Nivel) {
+        if (placasativas <= nivelmax) {
+            if(ChamaPlacas(buffer, pcont, placa, placasativas)) {
+                pcont = 0;
+                placasativas++;
+            } else pcont++;
+        } else if ((mouse_b & 1) && MouseNoIntervalo(0,LARGURA_TELA, 0, ALTURA_TELA)) {
+            // Verifica se o usuario clicou em uma das placas
+            if (MouseNoIntervalo(0, placa[0]->w, PLACA0_Y, PLACA0_Y + placa[0]->h) && NIVEL1 <= nivelmax)
+                *nivelatual = NIVEL1;
+            else if (MouseNoIntervalo(LARGURA_TELA - placa[1]->w, LARGURA_TELA, PLACA1_Y, PLACA1_Y + placa[1]->h) && NIVEL2 <= nivelmax)
+                *nivelatual = NIVEL2;
+            else if (MouseNoIntervalo(0, placa[2]->w, PLACA2_Y, PLACA2_Y + placa[2]->h) && NIVEL3 <= nivelmax)
+                *nivelatual = NIVEL3;
+            else if (MouseNoIntervalo(LARGURA_TELA - placa[3]->w, LARGURA_TELA, PLACA3_Y, PLACA3_Y + placa[3]->h) && NIVEL4 <= nivelmax)
+                *nivelatual = NIVEL4;
+            else if (MouseNoIntervalo(0, placa[4]->w, PLACA4_Y, PLACA4_Y + placa[4]->h) && NIVEL5 <= nivelmax)
+                *nivelatual = NIVEL5;
+        }
+
+<<<<<<< .mine
+        if (key[KEY_ESC]) *estado = Menu_Principal;
+        else if (key[KEY_ENTER])
+                if (*nivelatual < NIVEL1 || *nivelatual > nivelmax)
+                    allegro_message("Nenhum nivel foi escolhido!!");
+                else *estado = Jogo;
+    } //fim do while
+=======
+        if (key[KEY_ESC]) {
+            *estado = Saida;
+        } else if (key[KEY_ENTER] || key[KEY_ENTER_PAD]) {
+            if (*nivelatual < NIVEL1 || *nivelatual > nivelmax) allegro_message("Nenhum nivel foi escolhido!!");
+            else *estado = Jogo;
+        }
+    }
+
+>>>>>>> .r100
+    /* Como só vai sair do while quando clicar em uma das opções, toca o som quando sair do while, assim
+    ele toca na hr em que o usuário clicar. (por enquanto toca quando tecla enter) */
+    if(!key[KEY_ESC]) { //só toca se não sair do jogo
+        play_sample(fase2, 255, 255, 1000, 0);
+        rest(500);
+    }
+
+    for (pcont = 0 ; pcont < 5 ; pcont++) destroy_bitmap(placa[pcont]);
+    destroy_sample(fase2);
+    destroy_midi(*musicaFundo); //destroi o midi que tocava no menu, pois haverá uma nova música de fundo no jogo
+    *tocando = FALSE; //indica na flag tocando (do main) que a música foi destruída
+
+}
+
+void telaMenuOpcoes(EstadoJogo *estado, BITMAP *buffer) {
+
+}
+
+void telaMenuRecordes(EstadoJogo *estado, BITMAP *buffer) {
+    int value = 120, i, j, nivel = NIVEL1;
+    char nome[MAX_DIGITOS_NOME] = {'H','a','n','s'};
+    recorde recordes[NIVEIS][MAX_RECORDES]; //matriz com os recordes de cada nível
+
+
+    ///gravaçao de recorde APENAS para não exibir nada vazio, depois será removido
+    //for(nivel = NIVEL1; nivel <= NIVEL5; nivel++){
+    //    gravaRecorde(value + nivel*27, nome, nivel);
+    //}
+
+    /* Leitura e impressão dos recordes */
+    for(nivel = NIVEL1; nivel <= NIVEL5; nivel++) {
+        getListaRecordes(recordes[nivel], nivel); //salva os recordes no vetor do nível corrente
+        printf("\nNivel: %d\n    Nome  Pontos\n", nivel+1);
+        for(i=0; i<MAX_RECORDES; i++){
+            printf("%2d. ", i+1); //i-ésimo recordista do nível em avaliação no for mais externo
+            for(j=0; j<MAX_DIGITOS_NOME; j++){
+               putc(recordes[nivel][i].nome[j], stdout); //Impressão do nome, caracter por caracter
+            }
+            printf(" %d\n" , recordes[nivel][i].pontuacao); //Pontuação
+        }
+    }
+
+    //while(!key[KEY_ESC]) ; //enquanto não teclar esc
+    *estado = Menu_Principal; //retorna ao menu principal
+}
+
+//EXEMPLO
+void Despedida() {
+    BITMAP *Tchau;
+    MIDI *fim;
+    fim = load_midi(SOUNDS_PATH"vitoria.mid");
+    Tchau = load_bmp(IMAGES_PATH"Tchau.bmp",NULL);
+    play_midi(fim, 0);
+    draw_sprite(screen, Tchau, 0, ALTURA_TELA/2 - Tchau->h/2);
+    remove_int(gameTime);
+    rest(3000);
+    destroy_midi(fim);
+}

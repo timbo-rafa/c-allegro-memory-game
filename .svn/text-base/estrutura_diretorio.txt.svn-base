@@ -1,0 +1,8 @@
++ memory-game-mc102
+| - *.c
+| + Images
+| | - *.jpg/*.bmp
+| + Sounds
+| | - *.mp3
+| + Diversos
+| | - *.rar/*.zip

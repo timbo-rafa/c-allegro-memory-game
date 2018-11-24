@@ -1,0 +1,149 @@
+#define IMAGES_PATH     "images/"
+#define SOUNDS_PATH     "sounds/"
+#define FONTS_PATH      "fonts/"
+
+#define LARGURA_TELA    800
+#define ALTURA_TELA     600
+
+#ifndef TRUE
+   #define TRUE         1
+   #define FALSE        0
+#endif
+
+#define QUADRO_X    15
+#define QUADRO_Y    125
+
+#define VERTICAL 1
+#define HORIZONTAL 2
+#define AMBOS 3
+
+#define TEXTO_COMOJOGAR_L1 "Neste jogo voce tera que relacionar pares de cartas."
+#define TEXTO_COMOJOGAR_L2 "Uma carta contem uma operacao e o seu par, o resultado."
+#define TEXTO_COMOJOGAR_L3 "O tipo de conta feita depende do nivel escolhido."
+#define TEXTO_COMOJOGAR_L4 "Nao ha duas cartas com a mesma conta ou com o mesmo resultado."
+#define TEXTO_COMOJOGAR_L5 "Mas seja rapido, pois o tempo estara passando e lhe custara pontos!! Boa Sorte!! Aperte ESPACO"
+#define DIST_LINHAS 15
+
+// Menu do jogo
+#define OPCAO_X_MIN         55
+#define OPCAO_X_MAX         275
+#define INICIAR_JOGO_Y_MIN  150
+#define INICIAR_JOGO_Y_MAX  180
+#define COMOJOGAR_Y_MIN     200
+#define COMOJOGAR_Y_MAX     230
+#define RECORDES_Y_MIN      250
+#define RECORDES_Y_MAX      270
+#define SAIR_Y_MIN          295
+#define SAIR_Y_MAX          320
+
+#define MARGEM          20
+#define OPCAO_HEIGHT    45
+
+// Cores
+#define VERDE           makecol(0 , 75, 0)
+#define BRANCO          makecol(255, 255, 255)
+#define PRETO           makecol(0, 0, 0)
+#define TRANSPARENTE    makecol(255, 0, 255)
+#define MARROM_CLARO    makecol(225, 209, 155)
+
+#define DELAY_NUVEM     20
+#define DELAY_QUADRO    1
+#define MOVE_QUADRO_X   8
+
+#define DISTANCIA_PLACAS    8
+#define TAM_PLACA           199
+#define PLACA0_Y            DISTANCIA_PLACAS
+#define PLACA2_Y            (TAM_PLACA + 2 * DISTANCIA_PLACAS)
+#define PLACA4_Y            (2 * TAM_PLACA + 3 * DISTANCIA_PLACAS)
+#define PLACA1_Y            (DISTANCIA_PLACAS + 2 * TAM_PLACA / 3)
+#define PLACA3_Y            (2 * DISTANCIA_PLACAS + 5 * TAM_PLACA / 3)
+
+// Níveis do jogo
+#define NIVEL1  0
+#define NIVEL2  1
+#define NIVEL3  2
+#define NIVEL4  3
+#define NIVEL5  4
+#define NIVEIS  5
+
+// Vezes que procura espaço para os valores nas peças
+#define MAX_RAND 10
+
+// Faixa para calcular as contas
+#define MAXIMO     100
+#define MINIMO     10
+
+// Tamanho do tabuleiro
+#define M   5
+#define N   4
+
+// Tipo da peça
+#define VAZIO       -1
+#define EXPRESSAO   0
+#define RESULTADO   1
+
+// Medidas da peça e bordas
+#define PECA_LAR    150
+#define PECA_ALT    75
+#define BORDA_INT   10
+#define BORDA_EXT   85
+
+// Medidas dos números a ser desenhados e bordas
+#define NUM_LAR     28
+#define NUM_ALT     52
+#define BORDA_NUM_X 5
+#define BORDA_NUM_Y 12
+
+// Distância das peças
+#define DIST_LAR(j)   ((j)* (PECA_LAR + BORDA_INT) + BORDA_EXT)
+#define DIST_ALT(i)   ((i)* (PECA_ALT + BORDA_INT) + BORDA_EXT)
+
+// Tempo mínimo para o próximo clique
+#define TEMPO_CLICK 250
+
+// Pontuação por par de cartas correto
+#define SOMA_PONTOS 1000
+
+// Pontuação tirada por tempo gasto
+#define TIRA_PONTOS 10
+
+// Defines dos mecanismo de gravao de arquivo.
+#define ARQUIVO_RECORDE_N1  "ranking_n1.psl"
+#define ARQUIVO_RECORDE_N2  "ranking_n2.psl"
+#define ARQUIVO_RECORDE_N3  "ranking_n3.psl"
+#define ARQUIVO_RECORDE_N4  "ranking_n4.psl"
+#define ARQUIVO_RECORDE_N5  "ranking_n5.psl"
+
+// Espaços - Recordes
+#define MAX_RECORDES                10
+#define MAX_DIGITOS_NOME            20
+#define MAX_CASAS_DECIMAIS_RECORDE  8
+
+// Caracteres - Recordes
+#define SEPARADOR_BARRA     "|"
+#define CHAR_VAZIO          ' '
+#define CHAR_ZERO           '0'
+#define CHAR_BARRA          '|'
+#define FINAL_STRING        '\0'
+#define RANKING_TIPO_CLIQUE '\0'
+#define RANKING_TIPO_TEMPO  '\0'
+
+typedef enum {
+    MENU_PRINCIPAL,
+    MENU_COMO_JOGAR,
+    MENU_RECORDES,
+    PLACAS_NIVEL,
+    JOGO,
+    SAIDA,
+    EXIBE_PONTUACAO,
+} EstadoJogo;
+
+/**
+ * Struct que representa a entidade recorde. Ele e composto de nome,
+ * a pontuacao em string e a pontuacao em int.
+ */
+typedef struct{
+    char nome[MAX_DIGITOS_NOME];
+    char pontuacaoStr[MAX_CASAS_DECIMAIS_RECORDE];
+    int pontuacao;
+} recorde;
