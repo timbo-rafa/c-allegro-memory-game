@@ -1,7 +1,6 @@
 # Memory Game
 
-!(Memory Game Screenshot)[https://github.com/timbo-rafa/c-allegro-memory-game/blob/master/screenshots/memory-game-36.jpg]
-![aaa](https://github.com/timbo-rafa/c-allegro-game-life/blob/master/screenshots/game-life-large-scale-w320.gif?raw=true)
+![Memory Game Screenshot](https://github.com/timbo-rafa/c-allegro-memory-game/blob/master/screenshots/memory-game-36.jpg)
 
 ### Compilation
 
